@@ -24,7 +24,7 @@ const postSchema = new Schema({
     default: Date.now,
   },
   // Refers to the User Model
-  author: {
+  user: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "User",
     required: true,
