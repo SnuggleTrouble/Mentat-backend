@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const { schema } = require("./User.model");
-const { Shcema, model } = mongoose;
+const { Schema, model } = mongoose;
 
-const commentSchema = new schema({
+const commentSchema = new Schema({
   content: {
     type: String,
     required: true,
@@ -16,7 +16,7 @@ const commentSchema = new schema({
     default: Date.now,
   },
   // Refers to the User Model
-  author: {
+  user: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "User",
     required: true,
