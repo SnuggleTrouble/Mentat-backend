@@ -2,11 +2,19 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User.model");
+const { body } = require("express-validator");
+const validate = require("../middlewares/validate.middleware");
 
 const router = express.Router();
 
 // The User SignUp Route
-router.post("/signup", async (req, res) => {
+router.post("/signup",
+validate([
+  body("firstName").isLength({ min: 2 }),
+  body("lastName").isLength({ min: 2 }),
+  body("email").isEmail(),
+  body("password").isLength({ min: 6 }),
+]), async (req, res) => {
   // Grab the necessary information from the body.
   const { firstName, lastName, email, password } = req.body;
   try {
