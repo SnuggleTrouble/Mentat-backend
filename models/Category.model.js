@@ -8,5 +8,8 @@ const categorySchema = new Schema({
   },
 });
 
-// Exports the model and creates the "Category" collection in the database.
-module.exports = mongoose.model("Category", categorySchema);
+// Create a model
+const Category = model("Category", categorySchema);
+
+// Export the model so that it can be used in other files.
+module.exports = Category;
