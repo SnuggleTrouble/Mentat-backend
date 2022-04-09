@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User.model");
 const { body } = require("express-validator");
+const { authenticate } = require("../middlewares/jwt.middleware");
 const validate = require("../middlewares/validate.middleware");
 
 const router = express.Router();
@@ -15,6 +16,7 @@ validate([
   body("email").isEmail(),
   body("password").isLength({ min: 6 }),
 ]), async (req, res) => {
+  console.log(req.body)
   // Grab the necessary information from the body.
   const { firstName, lastName, email, password } = req.body;
   try {
@@ -34,6 +36,7 @@ validate([
 
 // The User Login Route
 router.post("/login", async (req, res) => {
+  console.log(req.body)
   const { email, password } = req.body;
   try {
     // Find a user with a given email
@@ -54,8 +57,11 @@ router.post("/login", async (req, res) => {
           expiresIn: "6h",
         });
         // Send the token along with the user to the front end
+        const {firstName, lastName, email} = user
         res.status(200).json({
-          user,
+          firstName,
+          lastName,
+          email,
           token,
         });
       } else {
@@ -67,6 +73,12 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     res.status(500).json(error);
   }
+});
+
+router.get("/verify", authenticate, (req, res) => {
+  res.status(200).json({
+    user: req.jwtPayload.user,
+  });
 });
 
 module.exports = router;

@@ -29,11 +29,11 @@ app.use("/post", authenticate, postRoutes);
 
 // The Category Route
 const categoryRoutes = require("./routes/category.routes");
-app.use("category", authenticate, categoryRoutes);
+app.use("/category", authenticate, categoryRoutes);
 
 // The Comment Route
 const commentRoutes = require("./routes/comment.routes");
-app.use("comment", authenticate, commentRoutes);
+app.use("/comment", authenticate, commentRoutes);
 
 // Listen to upcoming requests
 app.listen(process.env.PORT);
