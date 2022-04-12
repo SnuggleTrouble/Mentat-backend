@@ -11,8 +11,9 @@ const router = express.Router();
 // The User SignUp Route
 router.post("/signup",
 validate([
-  body("firstName").isLength({ min: 2 }),
-  body("lastName").isLength({ min: 2 }),
+  body("firstName").isLength({ min: 5 }),
+  body("lastName").isLength({ min: 5 }),
+  body("userName").isLength({ min: 5 }),
   body("email").isEmail(),
   body("password").isLength({ min: 6 }),
 ]), async (req, res) => {
@@ -25,6 +26,7 @@ validate([
     const user = await User.create({
       firstName,
       lastName,
+      userName,
       email,
       password: passwordHash,
     });
@@ -61,6 +63,7 @@ router.post("/login", async (req, res) => {
         res.status(200).json({
           firstName,
           lastName,
+          userName,
           email,
           token,
         });
