@@ -19,7 +19,7 @@ validate([
 ]), async (req, res) => {
   console.log(req.body)
   // Grab the necessary information from the body.
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, userName, email, password } = req.body;
   try {
     // Apply the bcrypt hash onto the password the user used to safely store it in the database
     const passwordHash = await bcrypt.hash(password, 12);
