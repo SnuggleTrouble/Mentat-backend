@@ -7,10 +7,9 @@ const router = express.Router();
 
 // Create a post
 router.post("/", async (req, res) => {
-  const { title, description, content } = req.body;
+  const { title, content } = req.body;
   const post = await Post.create({
     title,
-    description,
     content,
     user: req.jwtPayload.user._id,
   });
@@ -42,11 +41,10 @@ router.get("/:id", async (req, res) => {
 // Edit a post by id
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { title, description, content } = req.body;
+  const { title, content } = req.body;
   let post = await Post.findById(id);
   if (post.user.toString() === req.jwtPayload.user._id) {
     post.title = title;
-    post.description = description;
     post.content = content;
     post = await post.save();
     res.status(200).json(post);
