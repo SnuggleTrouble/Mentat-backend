@@ -59,7 +59,7 @@ router.post("/login", async (req, res) => {
           expiresIn: "6h",
         });
         // Send the token along with the user to the front end
-        const {firstName, lastName, email} = user
+        const {firstName, lastName, userName, email} = user
         res.status(200).json({
           firstName,
           lastName,
