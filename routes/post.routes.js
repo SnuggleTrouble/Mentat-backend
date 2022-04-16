@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
   res.status(200).json(posts);
 });
 
-// Acquire all tweets for a user
+// Acquire all posts for a user
 router.get("/owned", async (req, res) => {
   // Find posts associated with a user
   const posts = await Post.find({
