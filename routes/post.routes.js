@@ -42,7 +42,9 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
+  console.log (title, content)
   let post = await Post.findById(id);
+  console.log (post.user.toString(), req.jwtPayload.user._id)
   if (post.user.toString() === req.jwtPayload.user._id) {
     post.title = title;
     post.content = content;
