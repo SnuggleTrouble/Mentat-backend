@@ -33,10 +33,8 @@ const postSchema = new Schema({
   },
   // Refers to the Category Model
   category: {
-    type: [mongoose.SchemaTypes.ObjectId],
-    default: [],
-    ref: "Category",
-    required: true,
+    type: String,
+    required: false,
   },
 });
 
