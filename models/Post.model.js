@@ -31,10 +31,13 @@ const postSchema = new Schema({
     default: [],
     ref: "Comment",
   },
-  // Refers to the Category Model
+  support: {
+    type: Array,
+    default: [],
+  },
   category: {
     type: String,
-    required: false,
+  
   },
 });
 
