@@ -42,13 +42,14 @@ router.get("/:id", async (req, res) => {
 // Edit a post by id
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { title, content } = req.body;
-  console.log(title, content);
+  const { title, content, category } = req.body;
+  console.log(title, content, category);
   let post = await Post.findById(id);
   console.log(post.user.toString(), req.jwtPayload.user._id);
   if (post.user.toString() === req.jwtPayload.user._id) {
     post.title = title;
     post.content = content;
+    post.category = category;
     post = await post.save();
     res.status(200).json(post);
   } else {
