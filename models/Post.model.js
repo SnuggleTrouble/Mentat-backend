@@ -31,9 +31,9 @@ const postSchema = new Schema({
     default: [],
     ref: "Comment",
   },
-  // Refers to the Category Model
-  category: {
-    type: String,
+  support: {
+    type: Array,
+    default: [],
   },
 });
 
