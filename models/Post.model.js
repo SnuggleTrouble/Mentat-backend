@@ -35,10 +35,6 @@ const postSchema = new Schema({
     type: Array,
     default: [],
   },
-  category: {
-    type: String,
-  
-  },
 });
 
 // Exports the model and creates the "Post" collection in the database.
