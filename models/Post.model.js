@@ -34,7 +34,6 @@ const postSchema = new Schema({
   // Refers to the Category Model
   category: {
     type: String,
-    required: false,
   },
 });
 

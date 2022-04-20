@@ -27,10 +27,6 @@ app.use("/auth", authRoutes);
 const postRoutes = require("./routes/post.routes");
 app.use("/post", authenticate, postRoutes);
 
-// The Category Route
-const categoryRoutes = require("./routes/category.routes");
-app.use("/category", authenticate, categoryRoutes);
-
 // The Comment Route
 const commentRoutes = require("./routes/comment.routes");
 app.use("/comment", authenticate, commentRoutes);

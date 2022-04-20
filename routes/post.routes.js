@@ -7,10 +7,11 @@ const router = express.Router();
 
 // Create a post
 router.post("/", async (req, res) => {
-  const { title, content } = req.body;
+  const { title, content, category } = req.body;
   const post = await Post.create({
     title,
     content,
+    category, 
     user: req.jwtPayload.user._id,
   });
   res.status(200).json(post);
