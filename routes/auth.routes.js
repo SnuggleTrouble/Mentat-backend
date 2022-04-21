@@ -11,13 +11,13 @@ const router = express.Router();
 // The User SignUp Route
 router.post("/signup",
 validate([
-  body("firstName").isLength({ min: 5 }),
-  body("lastName").isLength({ min: 5 }),
-  body("userName").isLength({ min: 5 }),
+  body("firstName").isLength({ min: 5, max: 30 }),
+  body("lastName").isLength({ min: 5, max: 30 }),
+  body("userName").isLength({ min: 5, max: 30 }),
   body("email").isEmail(),
-  body("password").isLength({ min: 6 }),
+  body("password").isLength({ min: 6, max: 30 }),
 ]), async (req, res) => {
-  console.log(req.body)
+  
   // Grab the necessary information from the body.
   const { firstName, lastName, userName, email, password } = req.body;
   try {
@@ -38,7 +38,7 @@ validate([
 
 // The User Login Route
 router.post("/login", async (req, res) => {
-  console.log(req.body)
+  
   const { email, password } = req.body;
   try {
     // Find a user with a given email

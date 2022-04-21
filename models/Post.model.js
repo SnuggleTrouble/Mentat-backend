@@ -31,6 +31,9 @@ const postSchema = new Schema({
     default: [],
     ref: "Comment",
   },
+  category: {
+    type: String,
+  },
   support: {
     type: Array,
     default: [],

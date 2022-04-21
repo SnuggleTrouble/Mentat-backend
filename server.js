@@ -6,7 +6,9 @@ dotenv.config();
 const { authenticate } = require("./middlewares/jwt.middleware");
 
 // Connect to the database
-mongoose.connect(process.env.MONGO_DB_URL);
+mongoose.connect(process.env.MONGO_DB_URL, () => {
+    console.log("Connected to MongoDB")
+});
 
 // Creating a new Express app
 const app = express();
@@ -20,16 +22,18 @@ app.use(cors());
 app.use(express.json());
 
 // The Authentication Route
-const authRoutes = require("./routes/auth.routes");
-app.use("/auth", authRoutes);
+const authRoute = require("./routes/auth.routes");
+app.use("/auth", authRoute);
 
 // The Post Route
-const postRoutes = require("./routes/post.routes");
-app.use("/post", authenticate, postRoutes);
+const postRoute = require("./routes/post.routes");
+app.use("/post", authenticate, postRoute);
 
 // The Comment Route
-const commentRoutes = require("./routes/comment.routes");
-app.use("/comment", authenticate, commentRoutes);
+const commentRoute = require("./routes/comment.routes");
+app.use("/comment", authenticate, commentRoute);
 
 // Listen to upcoming requests
-app.listen(process.env.PORT);
+app.listen(process.env.PORT, () => {
+    console.log("Backend server is running!")
+});
