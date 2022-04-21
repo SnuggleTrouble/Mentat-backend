@@ -45,7 +45,6 @@ router.put("/:id", async (req, res) => {
   const { title, content, category } = req.body;
   console.log(title, content, category);
   let post = await Post.findById(id);
-  console.log(post.user.toString(), req.jwtPayload.user._id);
   if (post.user.toString() === req.jwtPayload.user._id) {
     post.title = title;
     post.content = content;
@@ -71,13 +70,27 @@ router.delete("/:id", async (req, res) => {
 
 // Support a post by id
 router.put("/:id/support", async (req, res) => {
-  console.log(req.params, req.body);
   const { id } = req.params;
   const { support } = req.body;
   try {
     const post = await Post.findByIdAndUpdate(id, { support });
-    if (!post.support.includes(id)) {
-    }
+  } catch (error) {
+    res.status(400).json("You're not authorized to do that");
+  }
+});
+
+// Unsupport a post by id
+router.put("/:id/unsupport", async (req, res) => {
+  const { id } = req.params;
+  const { support } = req.body;
+  try {
+    const post = await Post.findById(id ); 
+    const filterId = post.support.filter((c) => {
+      return c !== support 
+      }) 
+      post.support = filterId
+      post.save()
+
   } catch (error) {
     res.status(400).json("You're not authorized to do that");
   }
