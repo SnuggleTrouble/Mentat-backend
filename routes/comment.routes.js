@@ -4,8 +4,8 @@ const Post = require("../models/Post.model");
 
 const router = express.Router();
 
-// This function needs testing 
-router.post("/create/:id", async (req, res) => {
+// The Comment Route
+router.post("/:id", async (req, res) => {
   const { content } = req.body;
   // Acquire the post
   const post = await Post.findById(req.params.id);
@@ -15,10 +15,37 @@ router.post("/create/:id", async (req, res) => {
     user: req.jwtPayload.user._id,
   });
   await comment.save();
-  // Appent the comment to the post
+  // Append the comment to the post
   post.comments.push(comment.id);
   await post.save();
   res.status(200).json(comment);
+});
+
+// Edit a comment by id
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { content } = req.body;
+  console.log(content);
+  let comment = await Comment.findById(id);
+  if (comment.user.toString() === req.jwtPayload.user._id) {
+    comment.content = content;
+    comment = await comment.save();
+    res.status(200).json(comment);
+  } else {
+    res.status(400).json("You're not authorized to do that");
+  }
+});
+
+// Delete a comment by id
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  const comment = await Comment.findById(id);
+  if (comment.user.toString() === req.jwtPayload.user._id) {
+    await Comment.findByIdAndDelete(id);
+    res.status(200).json(comment);
+  } else {
+    res.status(400).json("You're not authorized to do that");
+  }
 });
 
 module.exports = router;

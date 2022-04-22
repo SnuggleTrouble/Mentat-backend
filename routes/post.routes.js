@@ -85,12 +85,11 @@ router.put("/:id/unsupport", async (req, res) => {
   const { support } = req.body;
   try {
     const post = await Post.findById(id ); 
-    const filterId = post.support.filter((c) => {
-      return c !== support 
+    const filterId = post.support.filter((cancel) => {
+      return cancel !== support 
       }) 
       post.support = filterId
       post.save()
-
   } catch (error) {
     res.status(400).json("You're not authorized to do that");
   }
