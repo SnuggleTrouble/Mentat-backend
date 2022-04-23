@@ -35,7 +35,8 @@ router.get("/owned", async (req, res) => {
 // Acquire one post by id
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  const post = await Post.findById(id);
+  const post = await Post.findById(id).populate("comments").populate("user");
+  console.log(post)
   res.status(200).json(post);
 });
 

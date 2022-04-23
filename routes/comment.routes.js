@@ -12,7 +12,7 @@ router.post("/:id", async (req, res) => {
   // Create the comment
   const comment = await Comment.create({
     content,
-    user: req.jwtPayload.user._id,
+    user: req.jwtPayload.user.userName,
   });
   await comment.save();
   // Append the comment to the post
@@ -40,9 +40,10 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   const comment = await Comment.findById(id);
-  if (comment.user.toString() === req.jwtPayload.user._id) {
+  console.log(comment, req.jwtPayload.user);
+  if (comment.user == req.jwtPayload.user.userName) {
     await Comment.findByIdAndDelete(id);
-    res.status(200).json(comment);
+    res.status(200).json("Deleted successful");
   } else {
     res.status(400).json("You're not authorized to do that");
   }
