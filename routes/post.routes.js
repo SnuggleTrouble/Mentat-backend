@@ -36,8 +36,13 @@ router.get("/owned", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   const post = await Post.findById(id).populate("comments").populate("user");
-  console.log(post)
   res.status(200).json(post);
+});
+
+// Acquire posts by category
+router.post ("/categories", async (req, res) => {
+  const posts = await Post.find({category: req.body.category}).populate("user");
+  res.status(200).json(posts);
 });
 
 // Edit a post by id
