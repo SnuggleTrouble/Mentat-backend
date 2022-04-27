@@ -6,12 +6,12 @@ const router = express.Router();
 
 // The Comment Route
 router.post("/:id", async (req, res) => {
-  const { content } = req.body;
+  const { commentContent } = req.body;
   // Acquire the post
   const post = await Post.findById(req.params.id);
   // Create the comment
   const comment = await Comment.create({
-    content,
+    commentContent,
     user: req.jwtPayload.user.userName,
   });
   await comment.save();
@@ -24,11 +24,11 @@ router.post("/:id", async (req, res) => {
 // Edit a comment by id
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { content } = req.body;
-  console.log(content);
+  const { commentContent } = req.body;
+  console.log(commentContent);
   let comment = await Comment.findById(id);
   if (comment.user.toString() === req.jwtPayload.user._id) {
-    comment.content = content;
+    comment.commentContent = commentContent;
     comment = await comment.save();
     res.status(200).json(comment);
   } else {
