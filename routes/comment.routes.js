@@ -26,10 +26,8 @@ router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { commentContent } = req.body;
   let comment = await Comment.findById(id);
-  console.log(comment.user === req.jwtPayload.user.userName);
   if (comment.user === req.jwtPayload.user.userName) {
     comment.commentContent = commentContent;
-    console.log (comment)
     comment = await comment.save();
     res.status(200).json(comment);
   } else {
