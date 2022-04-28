@@ -25,7 +25,6 @@ router.post("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { commentContent } = req.body;
-  console.log(commentContent);
   let comment = await Comment.findById(id);
   if (comment.user.toString() === req.jwtPayload.user._id) {
     comment.commentContent = commentContent;
@@ -40,7 +39,6 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   const comment = await Comment.findById(id);
-  console.log(comment, req.jwtPayload.user);
   if (comment.user == req.jwtPayload.user.userName) {
     await Comment.findByIdAndDelete(id);
     res.status(200).json("Deleted successful");

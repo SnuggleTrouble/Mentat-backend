@@ -13,6 +13,7 @@ const commentSchema = new Schema({
   updatedAt: {
     type: Date,
     default: Date.now,
+    immutable: false,
   },
   // Refers to the User Model
   user: {
