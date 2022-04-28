@@ -49,7 +49,6 @@ router.post ("/categories", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { title, content, category } = req.body;
-  console.log(title, content, category);
   let post = await Post.findById(id);
   if (post.user.toString() === req.jwtPayload.user._id) {
     post.title = title;
