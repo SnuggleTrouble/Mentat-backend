@@ -9,6 +9,7 @@ const commentSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now,
+    immutable: true,
   },
   updatedAt: {
     type: Date,
