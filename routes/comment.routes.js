@@ -41,7 +41,7 @@ router.delete("/:id", async (req, res) => {
   const comment = await Comment.findById(id);
   if (comment.user == req.jwtPayload.user.userName) {
     await Comment.findByIdAndDelete(id);
-    res.status(200).json("Deleted successful");
+    res.status(200).json("Deleted successfuly");
   } else {
     res.status(400).json("You're not authorized to do that");
   }
