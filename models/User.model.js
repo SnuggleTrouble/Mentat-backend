@@ -29,7 +29,7 @@ const userSchema = new Schema({
     default: Date.now,
     immutable: true,
   },
-});
+}, { timestamps: true });
 
 // Create a model
 const User = model("User", userSchema);
