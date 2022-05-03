@@ -9,36 +9,33 @@ const validate = require("../middlewares/validate.middleware");
 const router = express.Router();
 
 // The User SignUp Route
-router.post("/signup",
-validate([
-  body("firstName").isLength({ min: 5, max: 30 }),
-  body("lastName").isLength({ min: 5, max: 30 }),
-  body("userName").isLength({ min: 5, max: 30 }),
-  body("email").isEmail(),
-  body("password").isLength({ min: 6, max: 30 }),
-]), async (req, res) => {
-  
-  // Grab the necessary information from the body.
-  const { firstName, lastName, userName, email, password } = req.body;
-  try {
-    // Apply the bcrypt hash onto the password the user used to safely store it in the database
-    const passwordHash = await bcrypt.hash(password, 12);
-    const user = await User.create({
-      firstName,
-      lastName,
-      userName,
-      email,
-      password: passwordHash,
-    });
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json(error);
+router.post(
+  "/signup",
+  validate([
+    body("userName").isLength({ min: 5, max: 30 }),
+    body("email").isEmail(),
+    body("password").isLength({ min: 6, max: 30 }),
+  ]),
+  async (req, res) => {
+    // Grab the necessary information from the body.
+    const { userName, email, password } = req.body;
+    try {
+      // Apply the bcrypt hash onto the password the user used to safely store it in the database
+      const passwordHash = await bcrypt.hash(password, 12);
+      const user = await User.create({
+        userName,
+        email,
+        password: passwordHash,
+      });
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(500).json(error);
+    }
   }
-});
+);
 
 // The User Login Route
 router.post("/login", async (req, res) => {
-  
   const { email, password } = req.body;
   try {
     // Find a user with a given email
@@ -59,10 +56,8 @@ router.post("/login", async (req, res) => {
           expiresIn: "6h",
         });
         // Send the token along with the user to the front end.
-        const {firstName, lastName, userName, email} = user
+        const { userName, email } = user;
         res.status(200).json({
-          firstName,
-          lastName,
           userName,
           email,
           token,
