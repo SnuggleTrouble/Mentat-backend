@@ -58,7 +58,7 @@ router.post("/login", async (req, res) => {
           algorithm: "HS256",
           expiresIn: "6h",
         });
-        // Send the token along with the user to the front end
+        // Send the token along with the user to the front end.
         const {firstName, lastName, userName, email} = user
         res.status(200).json({
           firstName,
