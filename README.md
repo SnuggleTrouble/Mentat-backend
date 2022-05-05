@@ -22,6 +22,6 @@ The user can also search for posts by category, which will display every post li
 The author of each post can choose to edit it as they so choose, by changing the title, content and category as they wish; the same feature applies to the comments. ### `PS` Any user who didn't author a post or comment cannot edit or delete them, and the buttons will be hidden from view.
 
 ## Technology Used
-React.js, TailwindCSS, CSS, Node.js, Mongoose, JWT, Bcrypt, Cors, Dotenv and Express.
+React.js, TailwindCSS, CSS, Node.js, Mongoose, MongoDB, JWT, Bcrypt, Cors, Dotenv and Express.
 
 Made with ❤️ in Europe 🇪🇺 by @productandres & @stålebjørdal
