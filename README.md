@@ -24,6 +24,9 @@ The author of each post can choose to edit it as they so choose, by changing the
 ## Technology Used
 React.js, TailwindCSS, CSS, Node.js, Mongoose, MongoDB, JWT, Bcrypt, Cors, Dotenv and Express.
 
+## Website Link
+https://mentat.netlify.app/landing
+
 ## Link to the Frontend
 https://github.com/SnuggleTrouble/Mentat-frontend
 
